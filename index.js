@@ -1,6 +1,6 @@
 const express = require('express');
 const { db } = require('./database/config');
-const Gigs = require('./models/Gigs');
+const Gig = require('./models/Gigs');
 const app = express();
 
 init();
@@ -15,8 +15,9 @@ async function init()
     }
 }
 
-app.get('/gigs', (_, res) => {
-    
+app.get('/gigs', async (_, res) => {
+    const gigs = await Gig.findAll();
+    res.send(gigs);
 })
 
 app.listen(3000, (err) => {
