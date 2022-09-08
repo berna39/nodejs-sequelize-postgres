@@ -1,21 +1,13 @@
 const express = require('express');
-const { Sequelize } = require('sequelize');
+const { db } = require('./database/config');
 const app = express();
 
-//Database config
-const sequelize = new Sequelize('codegigs', 'postgres', 'mypassword', {
-    host: 'localhost',
-    dialect: 'postgres',
-    port: 5431
-});
-
-// Database connecting
 init();
 
 async function init()
 {
     try {
-        await sequelize.authenticate();
+        await db.authenticate();
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
