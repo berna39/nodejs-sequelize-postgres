@@ -76,6 +76,34 @@ app.delete('/gigs/:id', async (req, res) => {
     res.send({ status: "Deleted" });
 });
 
+app.get('/bulk-create', async (req, res) => {
+    await Gig.bulkCreate([
+        {  
+            title: "Sample 1",
+            description: "The description sample 1",
+            technologies: "NoSQL, Postgres",
+            budget: "2100",
+            contact_email: "sample1@email.com"
+        },
+        {  
+            title: "Sample 2",
+            description: "The description sample 2",
+            technologies: "NoSQL, Nodejs",
+            budget: "4300",
+            contact_email: "sample2@email.com"
+        },
+        {  
+            title: "Sample 3",
+            description: "The description sample 3",
+            technologies: "MySql, Java",
+            budget: "5600",
+            contact_email: "sample3@email.com"
+        }
+    ]);
+
+    res.send({ message: "Data sample created" });
+});
+
 app.listen(3000, (err) => {
     if(!err) console.log(`Server up and running`);
     else console.log(err);
