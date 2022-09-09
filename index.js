@@ -71,6 +71,11 @@ app.put('/gigs', async (req, res) => {
     res.send(gig);
 });
 
+app.delete('/gigs/:id', async (req, res) => {
+    await Gig.destroy({ where: { id: req.params.id } });
+    res.send({ status: "Deleted" });
+});
+
 app.listen(3000, (err) => {
     if(!err) console.log(`Server up and running`);
     else console.log(err);
