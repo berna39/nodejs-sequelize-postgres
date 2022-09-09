@@ -23,6 +23,11 @@ app.get('/gigs', async (_, res) => {
     res.send(gigs);
 });
 
+app.get('/gigs-order', async (_, res) => {
+    const gigs = await Gig.findAll({ order: [ ['title', 'ASC'] ] });
+    res.send(gigs);
+});
+
 app.get('/gigs-reduced', async (_, res) => {
     const gigs = await Gig.findAll({ attributes:['id', 'title', ['budget', 'amount']] });
     gigs.every(gis => console.log(gis instanceof Gig));
