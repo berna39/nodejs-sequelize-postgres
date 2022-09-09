@@ -20,7 +20,6 @@ async function init()
 
 app.get('/gigs', async (_, res) => {
     const gigs = await Gig.findAll();
-    gigs.every(gis => console.log(gis instanceof Gig));
     res.send(gigs);
 });
 
@@ -55,6 +54,19 @@ app.post('/gigs', async (req, res) => {
         budget,
         contact_email
     });
+
+    res.send(gig);
+});
+
+app.put('/gigs', async (req, res) => {
+    const {id, title, description, technologies, budget, contact_email} = req.body;
+    const gig = await Gig.update({
+        title,
+        description,
+        technologies,
+        budget,
+        contact_email
+    }, { where: { id:id } });
 
     res.send(gig);
 });
