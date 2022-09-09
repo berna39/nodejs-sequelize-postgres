@@ -28,6 +28,16 @@ app.get('/gigs-order', async (_, res) => {
     res.send(gigs);
 });
 
+app.get('/gigs/paginate/:perpage', async (req, res) => {
+    const gigs = await Gig.findAll({ limit: req.params.perpage });
+    res.send(gigs);
+});
+
+app.get('/gigs/skip/:skip', async (req, res) => {
+    const gigs = await Gig.findAll({ offset: req.params.skip });
+    res.send(gigs);
+});
+
 app.get('/gigs-reduced', async (_, res) => {
     const gigs = await Gig.findAll({ attributes:['id', 'title', ['budget', 'amount']] });
     gigs.every(gis => console.log(gis instanceof Gig));
