@@ -29,6 +29,12 @@ app.get('/gigs-reduced', async (_, res) => {
     res.send(gigs);
 });
 
+app.get('/gigs-by-title/:title', async (req, res) => {
+    const gigs = await Gig.findAll({ where: { title: req.params.title } });
+    gigs.every(gis => console.log(gis instanceof Gig));
+    res.send(gigs);
+});
+
 app.post('/gigs', async (req, res) => {
     const {title, description, technologies, budget, contact_email} = req.body;
     const gig = await Gig.create({
