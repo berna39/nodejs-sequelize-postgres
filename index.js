@@ -1,6 +1,7 @@
 const express = require('express');
 const { db } = require('./database/config');
-const Gig = require('./models/Gigs');
+const Gig = require('./models/Gig');
+const User = require('./models/User');
 const { Op } = require('sequelize');
 const app = express();
 
@@ -122,4 +123,4 @@ app.get('/bulk-create', async (req, res) => {
 app.listen(3000, (err) => {
     if(!err) console.log(`Server up and running`);
     else console.log(err);
-})
+});
