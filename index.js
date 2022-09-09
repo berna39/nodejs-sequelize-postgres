@@ -1,6 +1,7 @@
 const express = require('express');
 const { db } = require('./database/config');
 const Gig = require('./models/Gigs');
+const { Op } = require('sequelize');
 const app = express();
 
 app.use(express.json());
@@ -31,6 +32,16 @@ app.get('/gigs-reduced', async (_, res) => {
 
 app.get('/gigs-by-title/:title', async (req, res) => {
     const gigs = await Gig.findAll({ where: { title: req.params.title } });
+    gigs.every(gis => console.log(gis instanceof Gig));
+    res.send(gigs);
+});
+
+app.get('/gigs-by-title-or-technologies/:title/:technologie', async (req, res) => {
+    const gigs = await Gig.findAll({ 
+        where: { 
+            [ Op.and] : [ { title: req.params.title }, { technologies: req.params.technologie } ] 
+        } 
+    });
     gigs.every(gis => console.log(gis instanceof Gig));
     res.send(gigs);
 });
